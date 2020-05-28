@@ -21,10 +21,10 @@ export async function createPost(myTitle) {
   }
 }
 
-export async function updatePost(id) {
+export async function updatePost(title, id) {
   try {
     const response = await axios.put("http://localhost:3000/posts", {
-      title: "Updated title",
+      title: title,
       _id: id
     });
     console.log("Put", response.data);
@@ -35,7 +35,7 @@ export async function updatePost(id) {
 
 export async function deletePost (id) {
     try {
-        const response = await axios.delete("http://localhost:3000/posts", {
+      const response = await axios.delete("http://localhost:3000/posts", {
             _id: id
         })
         console.log('Delete', response.data)

@@ -4,8 +4,8 @@
       <div class="Grid">
           <div class="gridItem" v-for="post in posts" :key="post._id">{{post.title}}
               <div>
-                  <input type="text" placeholder="new value">
-                  <button @click="updatePost(post._id)">Update</button>
+                  <input type="text" placeholder="new value" v-model="post.title">
+                  <button @click="updatePost(post.title, post._id)">Update</button>
                   <button @click="deletePost(post._id)">Delete</button>
               </div>
           </div>
@@ -35,8 +35,8 @@ export default {
               Posts.getPosts().then(result => this.posts = result)
           }
       },
-      async updatePost (id) {
-          await Posts.updatePost(id)
+      async updatePost (title, id) {
+          await Posts.updatePost(title, id)
           Posts.getPosts().then(result => this.posts = result)
 
       },

@@ -33,48 +33,42 @@ MongoClient.connect(
     app.post("/posts", (req, res) => {
       try {
         postsCollection.insertOne(req.body);
-        res.send(req.body)
+        res.send(req.body);
       } catch (err) {
         console.error(error);
       }
     });
     app.get("/posts", (req, res) => {
       try {
-        postsCollection.find().toArray().then(result => {
-          res.send(result)
-        })
+        postsCollection
+          .find()
+          .toArray()
+          .then((result) => {
+            res.send(result);
+          });
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
     });
-    app.put('/posts', (req, res) => {
+    app.put("/posts", (req, res) => {
       try {
-        postsCollection.findOneAndUpdate(
-          {_id: req.body._id},
-          {
-            $set: {
-              title: req.body.title,
-            }
-          },
-          )
-        res.send(req.body)
-        res.json('Success')
-        console.log(req.body)
+        postsCollection.updateOne(
+          { _id: req.body._id },
+          { $set: { title: req.body.title, _id: req.body._id } }
+        );
+        res.send(req.body);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    })
+    });
 
-    app.delete('/posts', (req, res) => {
+    app.delete("/posts", (req, res) => {
       try {
-        postsCollection.remove(
-          { _id: req.body._id }
-        )
-        res.send(req.body)
+        postsCollection.remove({ _id: req.body._id });
+        res.send(req.body);
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    })
-  
+    });
   })
   .catch((error) => console.error(error));
