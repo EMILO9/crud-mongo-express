@@ -47,5 +47,34 @@ MongoClient.connect(
         console.error(err)
       }
     });
+    app.put('/posts', (req, res) => {
+      try {
+        postsCollection.findOneAndUpdate(
+          {_id: req.body._id},
+          {
+            $set: {
+              title: req.body.title,
+            }
+          },
+          )
+        res.send(req.body)
+        res.json('Success')
+        console.log(req.body)
+      } catch (err) {
+        console.error(err)
+      }
+    })
+
+    app.delete('/posts', (req, res) => {
+      try {
+        postsCollection.remove(
+          { _id: req.body._id }
+        )
+        res.send(req.body)
+      } catch (err) {
+        console.error(err)
+      }
+    })
+  
   })
   .catch((error) => console.error(error));
