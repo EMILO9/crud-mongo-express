@@ -22,7 +22,7 @@ app.get("/", (req, res) => {
 });
 
 MongoClient.connect(
-  "mongodb+srv://admin:idontknow123@crud-mongo-express-bcorw.mongodb.net/test?retryWrites=true&w=majority",
+  "connectionString",
   { useUnifiedTopology: true }
 )
   .then((client) => {
