@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const MongoClient = require("mongodb").MongoClient;
+const objectId = require("mongodb").ObjectID;
 const bodyParser = require("body-parser");
 const cors = require("cors");
 var morgan = require("morgan");
@@ -22,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 MongoClient.connect(
-  "connectionString",
+  "mongodb+srv://admin:idontknow123@crud-mongo-express-bcorw.mongodb.net/test?retryWrites=true&w=majority",
   { useUnifiedTopology: true }
 )
   .then((client) => {
@@ -64,7 +65,9 @@ MongoClient.connect(
 
     app.delete("/posts", (req, res) => {
       try {
-        postsCollection.remove({ _id: req.body._id });
+        postsCollection.deleteOne(
+          {"_id": objectId(req.body.id)}
+       )
         res.send(req.body);
       } catch (err) {
         console.error(err);

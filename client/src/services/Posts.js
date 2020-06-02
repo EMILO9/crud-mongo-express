@@ -36,7 +36,7 @@ export async function updatePost(title, id) {
 export async function deletePost (id) {
     try {
       const response = await axios.delete("http://localhost:3000/posts", {
-            _id: id
+        id: id
         })
         console.log('Delete', response.data)
     } catch (err) {
